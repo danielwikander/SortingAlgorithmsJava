@@ -47,17 +47,22 @@ public class MyInsertionTest {
     }
 
     public static void main(String[] args) throws Exception {
-        int[] data = readIntfile("files/smallints"); // Also try "largeints"!
-        //int N = data.length;    // Change to some smaller number to test on part of array.
-        int N = 800;
+        //int[] data = readIntfile("files/largeints"); // Also try "largeints"!
+        int[] data = {1,6,2,6,7,4,2,1,6,4,2,1,5,6,7};
+        int N = data.length;    // Change to some smaller number to test on part of array.
+
+        //int N = 10;
         // Look at numbers before sorting, unless there are too many of them.
         if (N <= 1000) {
             for (int i = 0; i < N; i++) { System.out.print(data[i]+" "); }
             System.out.print("\n\n");
         }
 
+
         long before = System.currentTimeMillis();
-        data = MergeSort.sort(data, 0, N-1);
+        data = QuickSort.sort(data);
+        //data = MergeSort.sort(data, 0, N-1);
+        //data = MergeSort.sort(data);
 //        insertionSort(data, 0, N-1);
         long after = System.currentTimeMillis();
 

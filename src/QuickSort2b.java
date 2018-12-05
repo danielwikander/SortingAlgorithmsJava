@@ -1,4 +1,4 @@
-public class QuickSort {
+public class QuickSort2b {
 
     static int[] sort(int[] a) {
         MyInsertionTest.shuffle(a, 0, a.length - 1); // Shuffle array
