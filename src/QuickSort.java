@@ -1,44 +1,44 @@
+import java.util.Random;
+
+/**
+ * Quicksort algorithm.
+ * @Author Daniel Wikander
+ */
 public class QuickSort {
 
-    static int[] sort(int[] a) {
-        MyInsertionTest.shuffle(a, 0, a.length - 1); // Shuffle array
-        int lo = 0;
-        int hi = a.length - 1;
-        sort(a, lo, hi);
-        return a;
-    }
+    Random rand = new Random();
 
-    static int[] sort(int[] a, int lo, int hi) {
-        if (lo < hi) { // Om lo > hi så är a redan sorterad
-            quicksort(a, lo, hi);
+    public int[] sort(int[] a, int lo, int hi) {
+        if (lo < hi) {                      // If lo < hi; array is already sorted
+            int p = partition(a, lo, hi);   // Create partitions
+            sort(a, lo, p);                 // Sort left side of array
+            sort(a, p + 1, hi);          // Sort right side of array
         }
-        return a;
+        return a;                           // Return sorted array
     }
 
-    static void quicksort(int[] a, int lo, int hi) {
-        int pivot = a[lo]; // Fastställer pivotpunkten
-        int i = lo;
-        int j = hi;
-        while (i <= j) {   // Räkna upp i och räkna ner j tills de möts
+    private int partition(int[] a, int lo, int hi) {
 
-            while (i < hi && a[i] < pivot) { // Iterera tills a[i] är större än pivot
-                i++;
-            }
+        // Choose pivot point
+        //int pivot = a[lo + rand.nextInt(hi - lo)]; // Random pivot
+        int pivot = a[lo + (hi - lo) / 2]; // Midpoint pivot
+        //int pivot = a[lo];   // Lowpoint pivot
+        //int pivot = a[hi-1]; // Highpoint pivot
 
-            while (a[j] > pivot) {           // Iterera tills a[j] är mindre än pivot
-                j--;
-            }
+        int i = lo - 1; // Set left side index
+        int j = hi + 1; // Set right side index
 
-            if (i <= j) {  // Byt plats på a[i] och a[j] om i är mindre än j.
-                int temp = a[i];
+        while (true) {
+            while (++i < hi && a[i] < pivot) ; // Increment i until a[i] is greater than pivot
+            while (--j > lo && a[j] > pivot) ; // Decrement j until a[j] is less than pivot
+
+            if (i < j) {                       // If i < j, swap elements positions.
+                int tmp = a[i];
                 a[i] = a[j];
-                a[j] = temp;
-                i++;
-                j--;
+                a[j] = tmp;
+            } else {
+                return j;                      // Else return j as partitioning point.
             }
         }
-        sort(a, lo, j); // Sortera vänstra sidan av pivotpunkten rekursivt
-        sort(a, i, hi); // Sortera högra sidan av pivotpunkten rekursivt
     }
 }
-

@@ -5,8 +5,10 @@ import java.util.Random;
 public class MyInsertionTest {
     static void insertionSort(int[] a, int lo, int hi) {
         for (int i = lo; i <= hi; i++) {
-            for (int j = i; j > lo && a[j] < a[j-1]; j--) {
-                int x = a[j]; a[j] = a[j-1]; a[j-1] = x;
+            for (int j = i; j > lo && a[j] < a[j - 1]; j--) {
+                int x = a[j];
+                a[j] = a[j - 1];
+                a[j - 1] = x;
             }
         }
     }
@@ -14,13 +16,13 @@ public class MyInsertionTest {
     // Checks if the first n element of a are in sorted order.
     private static boolean isSorted(int[] a, int lo, int hi) {
         int flaws = 0;
-        for (int i = lo+1; i <= hi; i++) {
-            if (a[i] < a[i-1]) {
+        for (int i = lo + 1; i <= hi; i++) {
+            if (a[i] < a[i - 1]) {
                 if (flaws++ >= 10) {
                     System.out.println("...");
                     break;
                 }
-                System.out.println("a["+(i-1)+"] = "+a[i-1]+", a["+i+"] = "+a[i]);
+                System.out.println("a[" + (i - 1) + "] = " + a[i - 1] + ", a[" + i + "] = " + a[i]);
             }
         }
         return flaws == 0;
@@ -30,8 +32,10 @@ public class MyInsertionTest {
     public static void shuffle(int[] a, int lo, int hi) {
         Random rand = new Random();
         for (int i = lo; i <= hi; i++) {
-            int r = i + rand.nextInt(hi+1-i);     // between i and hi
-            int t = a[i]; a[i] = a[r]; a[r] = t;
+            int r = i + rand.nextInt(hi + 1 - i);     // between i and hi
+            int t = a[i];
+            a[i] = a[r];
+            a[r] = t;
         }
     }
 
@@ -39,41 +43,55 @@ public class MyInsertionTest {
         // Read file into a byte array, and then combine every group of four bytes to an int. (Not
         // the standard way, but it works!)
         byte[] bytes = Files.readAllBytes(Paths.get(filename));
-        int[] ints = new int[bytes.length/4];
+        int[] ints = new int[bytes.length / 4];
         for (int i = 0; i < ints.length; i++) {
-            for (int j = 0; j < 4; j++) { ints[i] += (bytes[i*4+j] & 255) << (3-j)*8; }
+            for (int j = 0; j < 4; j++) {
+                ints[i] += (bytes[i * 4 + j] & 255) << (3 - j) * 8;
+            }
         }
         return ints;
     }
 
-    public static void main(String[] args) throws Exception {
-        //int[] data = readIntfile("files/largeints"); // Also try "largeints"!
-        int[] data = {1,6,2,6,7,4,2,1,6,4,2,1,5,6,7};
+   /* public static void main(String[] args) throws Exception {
+        int[] data = readIntfile("files/largeints"); // Also try "largeints"!
+        QuickSort quicksort = new QuickSort();
         int N = data.length;    // Change to some smaller number to test on part of array.
+        //int N = 100000;
 
-        //int N = 10;
         // Look at numbers before sorting, unless there are too many of them.
         if (N <= 1000) {
-            for (int i = 0; i < N; i++) { System.out.print(data[i]+" "); }
+            for (int i = 0; i < N; i++) {
+                System.out.print(data[i] + " ");
+            }
             System.out.print("\n\n");
         }
 
+        // Sort array before measuring time
+        data = quicksort.sort(data, 0, N - 1);
+
+        // Reverse array before measuring time
+        //for (int start = 0, end = data.length - 1; start <= end; start++, end--) {
+        //    int aux = data[start];
+        //    data[start]=data[end];
+        //    data[end]=aux;
+        //}
 
         long before = System.currentTimeMillis();
-        data = QuickSort.sort(data);
-        //data = MergeSort.sort(data, 0, N-1);
+        data = quicksort.sort(data, 0, N - 1);
         //data = MergeSort.sort(data);
-//        insertionSort(data, 0, N-1);
+        //insertionSort(data, 0, N-1);
         long after = System.currentTimeMillis();
 
         // Look at numbers after sorting, unless there are too many of them.
         if (N <= 1000) {
-            for (int i = 0; i < N; i++) { System.out.print(data[i]+" "); }
+            for (int i = 0; i < N; i++) {
+                System.out.print(data[i] + " ");
+            }
             System.out.print("\n");
         }
 
-        if (isSorted(data, 0, N-1)) {
-            System.out.println((after-before) / 1000.0 + " seconds");
+        if (isSorted(data, 0, N - 1)) {
+            System.out.println((after - before) / 1000.0 + " seconds");
         }
-    }
+    } */
 }
