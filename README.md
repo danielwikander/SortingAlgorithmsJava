@@ -1,3 +1,3 @@
 # Sorting algorithms in Java
 
-Some sorting algorithms written in Java
+My implementations of quicksort, mergesort and insertionsort. Written in Java.
